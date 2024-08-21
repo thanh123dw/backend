@@ -1,7 +1,12 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
+    "corsOrigin" => [
+//         "http://localhost:4001",
+//         "http://localhost:4200",
+//         "http://localhost:4300",
+//         "http://localhost:4400"
+    ],
+    "authExcepts" => ['login'],
+    "expireTime" => "86400"
 ];
