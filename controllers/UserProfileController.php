@@ -52,12 +52,12 @@ class UserProfileController extends DefaultRestController
 
         $user = $model->getUser();
         if ($user === null) {
-            return new Response(false, '1' . Yii::t('app', 'usernameOrPasswordIncorrect'));
+            return new Response(false,  Yii::t('app', 'usernameOrPasswordIncorrect'));
         }
 
         $currentUser = $model->login();
         if (empty($currentUser)) {
-            return new Response(false, '2' . Yii::t('app', 'usernameOrPasswordIncorrect'));
+            return new Response(false,  Yii::t('app', 'usernameOrPasswordIncorrect'));
         }
 
         Yii::$app->session->set('staffIds', $currentUser->staffids);
