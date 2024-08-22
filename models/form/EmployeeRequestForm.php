@@ -5,6 +5,7 @@ use yii\base\Model;
 
 class EmployeeRequestForm extends Model
 {
+    public $id;
 
     public $employeeid;
 

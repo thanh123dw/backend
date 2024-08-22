@@ -8,10 +8,10 @@ use yii\web\Response;
 class SiteController extends Controller
 {
 
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
+    // public function actionIndex()
+    // {
+    //     return $this->render('index');
+    // }
 
     /**
      * Login action.
@@ -25,12 +25,12 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
+    // public function actionLogout()
+    // {
+    //     Yii::$app->user->logout();
 
-        return $this->goHome();
-    }
+    //     return $this->goHome();
+    // }
 
     // /**
     // * Displays contact page.

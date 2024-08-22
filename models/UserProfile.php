@@ -19,8 +19,11 @@ use Yii;
  * @property string $password
  * @property string|null $token
  * @property string|null $created_at
+ * @property string|null $staffids
+ * @property int $point
+ * @property int $locked
  */
-class UserProfile extends \yii\db\ActiveRecord
+class Userprofile extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -39,8 +42,9 @@ class UserProfile extends \yii\db\ActiveRecord
             [['employee_id', 'fullname', 'username', 'idcard', 'password'], 'required'],
             [['address'], 'string'],
             [['created_at'], 'safe'],
+            [['point', 'locked'], 'integer'],
             [['employee_id', 'username', 'idcard', 'taxcode', 'bankaccountnumber'], 'string', 'max' => 50],
-            [['fullname', 'password', 'token'], 'string', 'max' => 255],
+            [['fullname', 'password', 'token', 'staffids'], 'string', 'max' => 255],
             [['phonenumber'], 'string', 'max' => 20],
         ];
     }
@@ -63,6 +67,28 @@ class UserProfile extends \yii\db\ActiveRecord
             'password' => 'Password',
             'token' => 'Token',
             'created_at' => 'Created At',
+            'staffids' => 'Staffids',
+            'point' => 'Point',
+            'locked' => 'Locked',
         ];
+    }
+
+    public static function getAll($staffIds)
+    {
+        $results = self::find();
+
+        if (! empty($staffIds)) {
+            if (is_string($staffIds)) {
+                $staffIds = explode(',', $staffIds); // Chuyển chuỗi thành mảng
+            }
+            // return $staffIds;
+            // Lọc kết quả dựa trên các staff IDs
+            $results = $results->orFilterWhere([
+                'in',
+                'id',
+                $staffIds
+            ]);
+        }
+        return $results->all();
     }
 }

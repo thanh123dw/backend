@@ -1,25 +1,21 @@
 <?php
+
 namespace app\controllers;
 
 use app\models\Response;
+use app\models\ShiftType;
+use app\models\WorkSchedule;
+use app\models\form\WorkScheduleForm;
 use Yii;
 use yii\helpers\ArrayHelper;
-use app\models\EmployeeRequest;
-use app\models\form\EmployeeRequestForm;
-use app\models\RequestType;
-
-/**
- * EmployeeRequestController implements the CRUD actions for EmployeeRequest model.
- */
-class EmployeeRequestController extends DefaultRestController
+class WorkScheduleController extends DefaultRestController
 {
-
     /**
      * List
      */
     public function actionIndex($ids)
     {
-        return new Response(true, self::SUCCESS, EmployeeRequest::getAll($ids));
+        return new Response(true, self::SUCCESS, WorkSchedule::getAll($ids));
     }
 
     /**
@@ -27,29 +23,26 @@ class EmployeeRequestController extends DefaultRestController
      */
     public function actionGet($id)
     {
-        $model = EmployeeRequest::findOne($id);
+        $model = WorkSchedule::findOne($id);
         if (empty($model)) {
             return new Response(false, self::PARAM_INVALID);
         }
 
         return new Response(true, self::SUCCESS, [
-            'employeerequest' => $model,
-            'requesttype' => RequestType::find()->all()
+            'model' => $model,
+            'shifttype' => ShiftType::find()->all()
         ]);
     }
 
-    /**
-     * Save
-     */
     public function actionSave()
     {
-        $form = new EmployeeRequestForm();
+        $form = new WorkScheduleForm();
         $form->setAttributes(Yii::$app->getRequest()
             ->getBodyParams(), false);
 
-        $model = EmployeeRequest::findOne($form->id);
+        $model = WorkSchedule::findOne($form->id);
         if (empty($model)) {
-            $model = new EmployeeRequest();
+            $model = new WorkSchedule();
         }
 
         $model->setAttributes(ArrayHelper::toArray($form), false);

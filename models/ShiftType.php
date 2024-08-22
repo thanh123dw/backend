@@ -5,19 +5,19 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "requesttype".
+ * This is the model class for table "shifttype".
  *
  * @property int $id
- * @property string $name
+ * @property string|null $description
  */
-class RequestType extends \yii\db\ActiveRecord
+class ShiftType extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'requesttype';
+        return 'shifttype';
     }
 
     /**
@@ -26,9 +26,7 @@ class RequestType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 50],
-            [['name'], 'unique'],
+            [['description'], 'string'],
         ];
     }
 
@@ -39,7 +37,7 @@ class RequestType extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'description' => 'Description',
         ];
     }
 }

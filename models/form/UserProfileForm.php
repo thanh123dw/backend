@@ -3,15 +3,8 @@ namespace app\models\form;
 
 use yii\base\Model;
 
-/**
- * LoginForm is the model behind the login form.
- *
- * @property-read User|null $user
- *
- */
 class UserProfileForm extends Model
 {
-
     public $id;
 
     public $employee_id;
@@ -35,4 +28,8 @@ class UserProfileForm extends Model
     public $token;
 
     public $created_at;
+
+    public $staffids ;
+    public     $point ;
+    public  $locked;
 }
