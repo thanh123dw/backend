@@ -25,7 +25,7 @@ class UserProfileController extends DefaultRestController
     }
 
     // thêm point cho 1 người, point âm thì là tặng
-    public function addPointToStaff($id, $plus)
+    public function actionAddPointToStaff($id, $plus)
     {
         $model = UserProfile::findOne($id);
 

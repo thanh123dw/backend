@@ -23,7 +23,7 @@ use Yii;
  * @property int $point
  * @property int $locked
  */
-class Userprofile extends \yii\db\ActiveRecord
+class UserProfile extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
