@@ -91,4 +91,14 @@ class Userprofile extends \yii\db\ActiveRecord
         }
         return $results->all();
     }
+
+    public static function findByUsername($username,$password)
+    {
+        return self::find()
+        ->where([
+            'username' => $username,
+            'password' => $password
+        ])
+        ->one();
+    }
 }

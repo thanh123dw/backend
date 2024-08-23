@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models\form;
 
 use yii\base\Model;
@@ -29,7 +30,9 @@ class UserProfileForm extends Model
 
     public $created_at;
 
-    public $staffids ;
-    public     $point ;
-    public  $locked;
+    public $staffids;
+
+    public $point;
+    
+    public $locked;
 }

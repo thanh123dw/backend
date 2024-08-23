@@ -27,10 +27,12 @@ class WorkScheduleController extends DefaultRestController
         if (empty($model)) {
             return new Response(false, self::PARAM_INVALID);
         }
+        $shiftTypes = ShiftType::find()->all();
+        $shiftTypeList = ArrayHelper::map($shiftTypes, 'description', 'description');
 
         return new Response(true, self::SUCCESS, [
             'model' => $model,
-            'shifttype' => ShiftType::find()->all()
+            'shifttype' => $shiftTypeList
         ]);
     }
 

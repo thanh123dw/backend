@@ -15,10 +15,11 @@ use Yii;
  * @property string $endtime
  * @property string|null $shifttype
  * @property string|null $description
- * @property string|null $status
+ * @property int $status
  * @property int|null $locked
  * @property string|null $createdat
  * @property string|null $updatedat
+ * @property string|null $reason
  */
 class ApproveWorkSchedule extends \yii\db\ActiveRecord
 {
@@ -37,10 +38,11 @@ class ApproveWorkSchedule extends \yii\db\ActiveRecord
     {
         return [
             [['workscheduleid', 'staffid', 'workdate', 'starttime', 'endtime'], 'required'],
-            [['workscheduleid', 'staffid', 'locked'], 'integer'],
+            [['workscheduleid', 'staffid', 'status', 'locked'], 'integer'],
             [['workdate', 'starttime', 'endtime', 'createdat', 'updatedat'], 'safe'],
-            [['description', 'status'], 'string'],
+            [['description'], 'string'],
             [['shifttype'], 'string', 'max' => 50],
+            [['reason'], 'string', 'max' => 255],
         ];
     }
 
@@ -62,6 +64,7 @@ class ApproveWorkSchedule extends \yii\db\ActiveRecord
             'locked' => 'Locked',
             'createdat' => 'Createdat',
             'updatedat' => 'Updatedat',
+            'reason' => 'Reason',
         ];
     }
 
