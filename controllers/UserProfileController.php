@@ -41,7 +41,7 @@ class UserProfileController extends DefaultRestController
     }
 
     // thêm point cho nhiều người, cập nhật hàng tháng
-    public function addPointsToStaff($plus)
+    public function actionAddPointToAll($plus)
     {
         // Tìm tất cả các UserProfile có trong danh sách $ids và có trường locked khác true
         $models = UserProfile::find()->andWhere([
