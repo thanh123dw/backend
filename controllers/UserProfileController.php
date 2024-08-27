@@ -133,7 +133,6 @@ class UserProfileController extends DefaultRestController
             return new Response(false, Yii::t('app', 'usernameOrPasswordIncorrect'));
         } else {
             /** @var UserProfile $user */
-            $user->username = null;
             $user->password = null;
         }
 
@@ -153,7 +152,7 @@ class UserProfileController extends DefaultRestController
         // Ghi log hoạt động đăng nhập
         Log::create($currentUser->id, $currentUser->username, 'Login', 'login', '');
 
-        return new Response(true, self::SUCCESS, $userDto);
+        return new Response(true, self::SUCCESS, $user);
     }
 
    public function actionLogout()
