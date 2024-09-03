@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\models\ApproveWorkSchedule;
@@ -11,9 +12,9 @@ use yii\helpers\ArrayHelper;
 class ApproveWorkScheduleController extends DefaultRestController
 {
 
-    public function actionIndex($ids)
+    public function actionIndex()
     {
-        return new Response(true, self::SUCCESS, ApproveWorkSchedule::getAll($ids));
+        return new Response(true, self::SUCCESS, ApproveWorkSchedule::findAll(['<>', 'locked', null]));
     }
 
     public function actionGet($id)
@@ -32,25 +33,28 @@ class ApproveWorkScheduleController extends DefaultRestController
     /**
      * Save
      */
-    public function actionSave()
+    public function actionApprove()
     {
-        $form = new ApproveWorkScheduleForm();
-        $form->setAttributes(Yii::$app->getRequest()
-            ->getBodyParams(), false);
+        $model = new ApproveWorkSchedule();
+        if ($this->request->isPost && $model->load($this->request->post())) {
 
-        $model = ApproveWorkSchedule::findOne($form->id);
-        if (empty($model)) {
-            $model = new ApproveWorkSchedule();
+            if ($model->save(false)) {
+
+                return new Response(true, self::SUCCESS, $model);
+            }
+            return new Response(false, self::FAIL);
         }
+    }
 
-        $model->setAttributes(ArrayHelper::toArray($form), false);
+    public function actionRequest()
+    {
+        $model = new ApproveWorkSchedule();
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            if ($model->save(false)) {
 
-        if ($model->save(false)) {
-            return new Response(true, self::SUCCESS, $model);
+                return new Response(true, self::SUCCESS, $model);
+            }
+            return new Response(false, self::FAIL);
         }
-
-        return new Response(false, self::FAIL);
     }
 }
-
-

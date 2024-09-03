@@ -130,7 +130,7 @@ class UserProfileController extends DefaultRestController
         $user = UserProfile::findByUserName($model->username, $model->password);
 
         if ($user === null) {
-            return new Response(false, Yii::t('app', 'usernameOrPasswordIncorrect'));
+            return new Response(false, Yii::t('app', 'Tài khoản hoặc mật khẩu không đúng'));
         } else {
             /** @var UserProfile $user */
             $user->password = null;
@@ -139,7 +139,7 @@ class UserProfileController extends DefaultRestController
         // Đăng nhập và lấy thông tin người dùng hiện tại
         $currentUser = $model->login();
         if ($currentUser === null) {
-            return new Response(false, Yii::t('app', 'usernameOrPasswordIncorrect'));
+            return new Response(false, Yii::t('app', 'Tài khoản hoặc mật khẩu không đúng'));
         }
         /** @var UserProfile $currentUser */
 
