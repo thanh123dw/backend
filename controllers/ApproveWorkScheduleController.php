@@ -3,18 +3,19 @@
 namespace app\controllers;
 
 use app\models\ApproveWorkSchedule;
+use app\models\form\ApproveWorkScheduleForm;
 use app\models\Response;
 use app\models\ShiftType;
-use app\models\form\ApproveWorkScheduleForm;
-use Yii;
+use app\models\WorkSchedule;
 use yii\helpers\ArrayHelper;
+use Yii;
 
 class ApproveWorkScheduleController extends DefaultRestController
 {
 
     public function actionIndex()
     {
-        return new Response(true, self::SUCCESS, ApproveWorkSchedule::findAll(['locked'=>0]));
+        return new Response(true, self::SUCCESS, ApproveWorkSchedule::findAll(['status' => 0]));
     }
 
     public function actionGet($id)
@@ -30,32 +31,31 @@ class ApproveWorkScheduleController extends DefaultRestController
         ]);
     }
 
-    /**
-     * Save
-     */
-    public function actionApprove()
+    public function actionSave($id, $action)
     {
-        $model = new ApproveWorkSchedule();
-        if ($this->request->isPost && $model->load($this->request->post())) {
+        $model = ApproveWorkSchedule::findOne($id);
+        if (empty($model)) {
+            return new Response(false, self::PARAM_INVALID);
+        }
+        if ($action == 'approve' || $action == 'reject') {
+            $model->status = 1;
+            if ($action == 'approve') {
+                $workShedule = WorkSchedule::findOne($model->workscheduleid);
+                if (empty($workShedule)) {
+                    return new Response(false, self::PARAM_INVALID, $workShedule);
+                }
+                $attributes = ArrayHelper::toArray($model);
+                unset($attributes['id']);
 
-            if ($model->save(false)) {
+                $workShedule->setAttributes($attributes, false);
+                $workShedule->updatedat = date('Y-m-d H:i:s');
+            }
 
+            if ($model->save(false) && $workShedule->save(false)) {
                 return new Response(true, self::SUCCESS, $model);
             }
-            return new Response(false, self::FAIL);
         }
-    }
-    public function actionReject()
-    {
-        $model = new ApproveWorkSchedule();
-        if ($this->request->isPost && $model->load($this->request->post())) {
-
-            if ($model->save(false)) {
-
-                return new Response(true, self::SUCCESS, $model);
-            }
-            return new Response(false, self::FAIL);
-        }
+        return new Response(false, self::FAIL);
     }
 
     public function actionRequest()

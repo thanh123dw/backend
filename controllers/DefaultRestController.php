@@ -3,10 +3,6 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\auth\HttpBasicAuth;
-use yii\filters\auth\HttpBearerAuth;
-use yii\filters\auth\QueryParamAuth;
-use yii\filters\Cors;
 use yii\rest\Controller;
 
 class DefaultRestController extends Controller
