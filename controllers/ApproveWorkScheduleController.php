@@ -14,7 +14,7 @@ class ApproveWorkScheduleController extends DefaultRestController
 
     public function actionIndex()
     {
-        return new Response(true, self::SUCCESS, ApproveWorkSchedule::findAll(['<>', 'locked', null]));
+        return new Response(true, self::SUCCESS, ApproveWorkSchedule::findAll(['locked'=>0]));
     }
 
     public function actionGet($id)
@@ -34,6 +34,18 @@ class ApproveWorkScheduleController extends DefaultRestController
      * Save
      */
     public function actionApprove()
+    {
+        $model = new ApproveWorkSchedule();
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+            if ($model->save(false)) {
+
+                return new Response(true, self::SUCCESS, $model);
+            }
+            return new Response(false, self::FAIL);
+        }
+    }
+    public function actionReject()
     {
         $model = new ApproveWorkSchedule();
         if ($this->request->isPost && $model->load($this->request->post())) {

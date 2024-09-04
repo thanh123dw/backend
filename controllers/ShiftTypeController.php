@@ -7,9 +7,9 @@ use app\models\ShiftType;
 
 class ShiftTypeController extends DefaultRestController
 {
-    public function actionIndex($q)
+    public function actionIndex()
     {
-        return new Response(true, self::SUCCESS, ShiftType::findAll());
+        return new Response(true, self::SUCCESS, ShiftType::find()->all());
     }
 
 }
