@@ -20,9 +20,9 @@ class UserProfileController extends DefaultRestController
     }
 
     // lấy ra thông tin các nhân viên cần quản lí
-    public function actionGetStaff($ids)
+    public function actionGetStaff()
     {
-        return new Response(true, self::SUCCESS, UserProfile::getAll($ids));
+        return new Response(true, self::SUCCESS, UserProfile::find()->all());
     }
 
     // thêm point cho 1 người lưu log lại
